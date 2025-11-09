@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "6f628118-b156-46e2-ae42-66d329ce9afa",
+		"name": "JSONPlaceholder Full Suite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49477232",
+		"_collection_link": "https://jeffmaddowjr-7990182.postman.co/workspace/GitHub~4be4e717-8cbe-46e0-8afd-1d1a53cc937e/collection/49477232-6f628118-b156-46e2-ae42-66d329ce9afa?action=share&source=collection_link&creator=49477232"
+	},
+	"item": [
+		{
+			"name": "All-Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+							"   pm.test(\"Returns array of posts\", () => {",
+							"       pm.expect(pm.response.json()).to.be.an('array');",
+							"       pm.expect(pm.response.json().length).to.be.above(0);",
+							"   });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/posts",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single-Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+							"   pm.test(\"Post has required fields\", () => {",
+							"       const post = pm.response.json();",
+							"       pm.expect(post).to.have.property('userId');",
+							"       pm.expect(post).to.have.property('title');",
+							"       pm.expect(post).to.have.property('body');",
+							"   });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/posts/1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+							"   pm.test(\"Comments exist for post\", () => {",
+							"       pm.expect(pm.response.json().length).to.be.above(0);",
+							"   });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/comments?postId=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+							"   pm.test(\"Has multiple users\", () => {",
+							"       pm.expect(pm.response.json().length).to.equal(10);",
+							"   });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
